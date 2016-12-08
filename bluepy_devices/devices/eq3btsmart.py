@@ -82,12 +82,12 @@ class EQ3BTSmartThermostat:
     @property
     def min_temp(self):
         """Return the minimum temperature."""
-        return 4.5
+        return 5.0
 
     @property
     def max_temp(self):
         """Return the maximum temperature."""
-        return 30.5
+        return 29.5
 
     @staticmethod
     def decode_mode(mode):
