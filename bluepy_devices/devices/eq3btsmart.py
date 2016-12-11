@@ -209,6 +209,12 @@ class EQ3BTSmartThermostat:
         return self._valve_state
 
     @property
+    def window_open(self):
+        """Returns True if the thermostat reports a open window
+           (detected by sudden drop of temperature)"""
+        return bool(self._raw_mode & BITMASK_WINDOW)
+
+    @property
     def min_temp(self):
         """Return the minimum temperature."""
         return 5.0
