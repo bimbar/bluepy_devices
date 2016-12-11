@@ -239,6 +239,11 @@ class EQ3BTSmartThermostat:
         self._conn.write_request_raw(PROP_WRITE_HANDLE, value)
 
     @property
+    def low_battery(self):
+        """Returns True if the thermostat reports a low battery."""
+        return bool(self._raw_mode & BITMASK_BATTERY)
+
+    @property
     def min_temp(self):
         """Return the minimum temperature."""
         return 5.0
@@ -267,5 +272,7 @@ class EQ3BTSmartThermostat:
             ret = ret + " window"
         if mode & BITMASK_LOCKED:
             ret = ret + " locked"
+        if mode & BITMASK_BATTERY:
+            ret = ret + " low battery"
 
         return ret
