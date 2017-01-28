@@ -50,14 +50,13 @@ class EQ3BTSmartThermostat:
             self._mode = data[2] & 1
             self._target_temperature = data[5] / 2.0
 
-# TO BE TESTED
     def _set_time(self):
         """Set the correct time into the thermostat."""
         time = datetime.now()
-        value = struct.pack('BBBBBB', int(time.strftime("%y")),
-                            time.month, time.day, time.hour,
-                            time.minute, time.second)
-        self._conn.write_command_raw(PROP_WRITE_HANDLE, value)
+        value = struct.pack('BBBBBB', 3, time.year - 2000,
+                            time.month, time.day,
+                            time.hour, time.minute)
+        self._conn.write_command_raw(PROP_WRITE_HANDLE, value, wait_for_it=True)
 
     @property
     def target_temperature(self):
