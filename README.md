@@ -1,3 +1,5 @@
+# FOR AN UPDATED VERSION OF EQ3BT SMART FOR HOMEASSISTANT, USE https://github.com/rytilahti/python-eq3bt
+
 # bluepy_devices
 Simplified BTLE Device Interface for bluepy
 
