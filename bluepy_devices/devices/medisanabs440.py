@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 
-Support for Medisana BT440 and compatible bathroom scales
+Support for Medisana BS440 and compatible bathroom scales
 With thanks to https://github.com/keptenkurk
 
 """
@@ -47,7 +47,7 @@ PROP_ACTIVITY_NORMAL = "normal"
 PROP_WRITE_HANDLE = 0x23
 
 
-class MedisanaBT440Person:
+class MedisanaBS440Person:
     """Representation of a person record."""
     
     def __init__(self, _handle, _data):
@@ -82,7 +82,7 @@ class MedisanaBT440Person:
         self.body = []
 
  
- class MedisanaBT440Weight:
+ class MedisanaBS440Weight:
     """Representation of a weight record."""
     
     def __init__(self, _handle, _data):
@@ -107,7 +107,7 @@ class MedisanaBT440Person:
         self.person = data[3]
 
 
- class MedisanaBT440Body:
+ class MedisanaBS440Body:
     """Representation of a body record."""
     
     def __init__(self, _handle, _data):
@@ -142,8 +142,8 @@ class MedisanaBT440Person:
 
 
 # pylint: disable=too-many-instance-attributes
-class MedisanaBT440:
-    """Representation of a Medisana BT440 or compatible bathroom scale."""
+class MedisanaBS440:
+    """Representation of a Medisana BS440 or compatible bathroom scale."""
 
     def __init__(self, _mac):
         """Initialize the object."""
@@ -154,55 +154,23 @@ class MedisanaBT440:
         self._conn.set_callback(PROP_WEIGHT_HANDLE, self.handle_weight_notification)
         self._conn.set_callback(PROP_BODY_HANDLE, self.handle_body_notification)
 
-    def processIndication(handle, values):
-        '''
-        Originally by https://github.com/keptenkurk
-        Indication handler
-        receives indication and stores values into result Dict
-        (see BS440decode.py for Dict definition)
-        handle: byte
-        value: bytearray
-        '''
-        if handle == 0x25:
-            result = decodePerson(handle, values)
-            if result not in persondata:
-                log.info(str(result))
-                persondata.append(result)
-            else:
-                log.info('Duplicate persondata record')
-        elif handle == 0x1b:
-            result = decodeWeight(handle, values)
-            if result not in weightdata:
-                log.info(str(result))
-                weightdata.append(result)
-            else:
-                log.info('Duplicate weightdata record')
-        elif handle == 0x1e:
-            result = decodeBody(handle, values)
-            if result not in bodydata:
-                log.info(str(result))
-                bodydata.append(result)
-            else:
-                log.info('Duplicate bodydata record')
-        else:
-        log.debug('Unhandled Indication encountered')
 
     def handle_person_notification(self, data):
         """Handle Callback from a Bluetooth (GATT) request."""
         _LOGGER.debug("Received person notification from the device..")
-        result = MedisanaBT440Person(PROP_PERSON_HANDLE, data)
+        result = MedisanaBS440Person(PROP_PERSON_HANDLE, data)
         self._person[result.person] = result
 
     def handle_weight_notification(self, data):
         """Handle Callback from a Bluetooth (GATT) request."""
         _LOGGER.debug("Received person notification from the device..")
-        result = MedisanaBT440Weight(PROP_WEIGHT_HANDLE, data)
+        result = MedisanaBS440Weight(PROP_WEIGHT_HANDLE, data)
         self._person[result.person].weight.append(result)
 
     def handle_body_notification(self, data):
         """Handle Callback from a Bluetooth (GATT) request."""
         _LOGGER.debug("Received person notification from the device..")
-        result = MedisanaBT440Body(PROP_BODY_HANDLE, data)
+        result = MedisanaBS440Body(PROP_BODY_HANDLE, data)
         self._person[result.person].body.append(result)
 
     def update(self):
