@@ -18,7 +18,7 @@ CAVEAT: The device in question has to be disconnected from bluetoothd, since BTL
 
 **EQ3 Bluetooth Smart**
 
-# command-line client
+*command-line client*
 To test all available functionality a cli tool inside utils can be used.
 
 EQ3_MAC environment variable can be used to define mac to avoid typing it:
