@@ -1,5 +1,3 @@
-# FOR AN UPDATED VERSION OF EQ3BT SMART FOR HOMEASSISTANT, USE https://github.com/rytilahti/python-eq3bt
-
 # bluepy_devices
 Simplified BTLE Device Interface for bluepy
 
@@ -12,9 +10,13 @@ or
 
 pip3 install bluepy_devices
 
-Provides a basic library to connect to a BTLE device, and has at present one device interface class for basic EQ3 Bluetooth Smart functionality.
+Provides a basic library to connect to a BTLE device, simplifying usage of bluepy.
 
 CAVEAT: The device in question has to be disconnected from bluetoothd, since BTLE devices can only hold one connection at a time.
+
+***Supported devices:***
+
+**EQ3 Bluetooth Smart**
 
 # command-line client
 To test all available functionality a cli tool inside utils can be used.
@@ -54,3 +56,7 @@ For help, use --help
 ```bash
 python3 -m utils.cli --help
 ```
+
+**Medisana BT440 and compatible bathroom scales**
+
+In development
